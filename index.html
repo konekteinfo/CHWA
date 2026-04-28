@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHWA PICK 3 - XpliciTek</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 20px; background: #0f0c29; color: white; text-align: center; position: relative; min-height: 100vh; }
+        .watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-size: 5rem; opacity: 0.05; pointer-events: none; white-space: nowrap; font-weight: bold; z-index: 0; }
+        .card { background: #1a1a2e; padding: 25px; border-radius: 20px; max-width: 600px; margin: auto; border: 2px solid #00d2ff; position: relative; z-index: 1; box-shadow: 0 0 20px rgba(0, 210, 255, 0.3); }
+        h1 { color: #00d2ff; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 5px; }
+        .mirror-box { background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px; margin: 15px 0; font-size: 14px; border: 1px dashed #00d2ff; }
+        select { width: 100%; padding: 15px; margin: 10px 0; border-radius: 10px; font-size: 18px; background: #16213e; color: #00d2ff; border: 1px solid #00d2ff; cursor: pointer; }
+        .sequence-header { color: #ff00ff; font-weight: bold; font-size: 22px; margin: 20px 0; border-bottom: 2px solid #ff00ff; display: inline-block; padding-bottom: 5px; }
+        .pair-section { background: #16213e; padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: left; border: 1px solid #0f3460; }
+        .pair-title { color: #00d2ff; font-weight: bold; font-size: 20px; margin-bottom: 10px; text-decoration: underline; }
+        .pick3-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-family: 'Courier New', monospace; font-size: 18px; color: #fff; }
+        .label-text { text-align: left; display: block; margin-top: 10px; color: #00d2ff; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="watermark">LAKOU CHWA</div>
+
+<div class="card">
+    <h1>CHWA PICK 3</h1>
+    <p style="color: #aaa; margin-top: 0;">Strateji pa XpliciTek</p>
+
+    <div class="mirror-box">
+        <strong>RÈG MIWA (MIRROR):</strong><br>
+        0=5 | 1=6 | 2=7 | 3=8 | 4=9
+    </div>
+
+    <span class="label-text">1. Chwazi Sekans:</span>
+    <select id="baseType" onchange="updateOptions()">
+        <option value="">-- Chwazi Sekans --</option>
+        <option value="base1">Sekans Baz 1</option>
+        <option value="base2">Sekans Baz 2</option>
+    </select>
+
+    <span class="label-text">2. Chwazi Nimewo a:</span>
+    <select id="numberSelect" onchange="generateResults()" style="display:none;">
+    </select>
+
+    <div id="outputArea">
+        <div id="seqDisplay" class="sequence-header"></div>
+        <div id="results"></div>
+    </div>
+</div>
+
+<script>
+const base1Data = {
+    "01": { pairs: ["12", "02", "90", "91"], keys: {"12":["0","9","1","6","2","7"], "02":["1","9","0","5","2","7"], "90":["2","1","9","4","0","5"], "91":["0","2","9","4","1","6"]} },
+    "12": { pairs: ["23", "13", "01", "02"], keys: {"23":["1","0","2","7","3","8"], "13":["2","0","1","6","3","8"], "01":["3","2","0","5","1","6"], "02":["1","3","0","5","2","7"]} },
+    "23": { pairs: ["34", "24", "12", "13"], keys: {"34":["2","1","3","8","4","9"], "24":["3","1","2","7","4","9"], "12":["4","3","1","6","2","7"], "13":["2","4","1","6","3","8"]} },
+    "34": { pairs: ["45", "35", "23", "24"], keys: {"45":["3","2","4","9","5","0"], "35":["4","2","3","8","5","0"], "23":["5","4","2","7","3","8"], "24":["3","5","2","7","4","9"]} },
+    "45": { pairs: ["56", "46", "34", "35"], keys: {"56":["4","3","5","0","6","1"], "46":["5","3","4","9","6","1"], "34":["6","5","3","8","4","9"], "35":["4","6","3","8","5","0"]} },
+    "56": { pairs: ["67", "57", "45", "46"], keys: {"67":["5","4","6","1","7","2"], "57":["6","4","5","0","7","2"], "45":["7","6","4","9","5","0"], "46":["5","7","4","9","6","1"]} },
+    "67": { pairs: ["78", "68", "56", "57"], keys: {"78":["6","5","7","2","8","3"], "68":["7","5","6","1","8","3"], "56":["8","7","5","0","6","1"], "57":["6","8","5","0","7","2"]} },
+    "78": { pairs: ["89", "79", "67", "68"], keys: {"89":["7","6","8","3","9","4"], "79":["8","6","7","2","9","4"], "67":["9","8","6","1","7","2"], "68":["7","9","6","1","8","3"]} },
+    "89": { pairs: ["90", "80", "78", "79"], keys: {"90":["8","7","9","4","0","5"], "80":["9","7","8","3","0","5"], "78":["0","9","7","2","8","3"], "79":["8","0","7","2","9","4"]} },
+    "90": { pairs: ["01", "91", "89", "80"], keys: {"01":["9","8","0","5","1","6"], "91":["0","8","9","4","1","6"], "89":["1","0","8","3","9","4"], "80":["9","1","8","3","0","5"]} }
+};
+
+const base2Data = {
+    "02": { pairs: ["01", "12", "13", "91"], keys: {"01":["2","3","9","0","5","1","6"], "12":["0","3","9","1","6","2","7"], "13":["0","2","1","6","7","5"], "91":["0","2","3","8","1","6"]} },
+    "13": { pairs: ["12", "23", "24", "02"], keys: {"12":["3","4","0","1","6","2","7"], "23":["1","4","0","2","7","3","8"], "24":["1","3","2","7","8","6"], "02":["1","3","4","9","2","7"]} },
+    "24": { pairs: ["23", "34", "35", "13"], keys: {"23":["4","5","1","2","7","3","8"], "34":["2","5","1","3","8","4","9"], "35":["2","4","3","8","9","7"], "13":["2","4","5","0","3","8"]} },
+    "35": { pairs: ["34", "45", "46", "24"], keys: {"34":["5","6","2","3","8","4","9"], "45":["3","6","2","4","9","5","0"], "46":["3","5","4","9","0","8"], "24":["3","5","6","1","4","9"]} },
+    "46": { pairs: ["45", "56", "57", "35"], keys: {"45":["6","7","3","4","9","5","0"], "56":["4","7","3","5","0","6","1"], "57":["4","6","5","0","1","9"], "35":["4","6","7","2","5","0"]} },
+    "57": { pairs: ["56", "67", "68", "46"], keys: {"56":["7","8","4","5","0","6","1"], "67":["5","8","4","6","1","7","2"], "68":["5","7","6","1","2","0"], "46":["5","7","8","3","6","1"]} },
+    "68": { pairs: ["67", "78", "79", "57"], keys: {"67":["8","9","5","6","1","7","2"], "78":["6","9","5","7","2","8","3"], "79":["6","8","7","2","3","1"], "57":["6","8","9","4","7","2"]} },
+    "79": { pairs: ["78", "89", "80", "68"], keys: {"78":["9","0","6","7","2","8","3"], "89":["7","0","6","8","3","9","4"], "80":["7","9","8","3","4","2"], "68":["7","9","0","5","8","3"]} },
+    "80": { pairs: ["89", "90", "91", "79"], keys: {"89":["0","1","7","8","3","9","4"], "90":["8","1","7","9","4","0","5"], "91":["8","0","9","4","5","3"], "79":["8","0","1","6","9","4"]} },
+    "91": { pairs: ["90", "01", "02", "80"], keys: {"90":["1","2","8","9","4","0","5"], "01":["9","2","8","0","5","1","6"], "02":["9","1","0","5","6","4"], "80":["9","1","2","7","0","5"]} }
+};
+
+function updateOptions() {
+    const type = document.getElementById('baseType').value;
+    const selector = document.getElementById('numberSelect');
+    selector.innerHTML = '<option value="">-- Chwazi Nimewo --</option>';
+    if(!type) { selector.style.display = "none"; return; }
+    const data = (type === 'base1') ? base1Data : base2Data;
+    for(let num in data) { selector.innerHTML += `<option value="${num}">${num}</option>`; }
+    selector.style.display = "block";
+}
+
+function generateResults() {
+    const type = document.getElementById('baseType').value;
+    const num = document.getElementById('numberSelect').value;
+    const seqDisplay = document.getElementById('seqDisplay');
+    const results = document.getElementById('results');
+    if(!num) { seqDisplay.innerHTML = ""; results.innerHTML = ""; return; }
+
+    const dataGroup = (type === 'base1') ? base1Data[num] : base2Data[num];
+    seqDisplay.innerHTML = `${num} &rarr; ${dataGroup.pairs.join(" - ")}`;
+    results.innerHTML = "";
+
+    dataGroup.pairs.forEach(pair => {
+        let keys = dataGroup.keys[pair];
+        let section = `<div class="pair-section"><div class="pair-title">Konbinezon pou: ${pair}</div><div class="pick3-grid">`;
+        keys.forEach(k => { section += `<div>${k}${pair} - ${k}${pair[1]}${pair[0]}</div>`; });
+        section += `</div></div>`;
+        results.innerHTML += section;
+    });
+}
+</script>
+</body>
+</html>

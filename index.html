@@ -73,7 +73,7 @@
 </div>
 
 <script>
-// Logic Data
+// Done yo (Data)
 const allData = {
     base1: {
         "01": { pairs: ["12", "02", "90", "91"], keys: {"12":["0","9","1","6","2","7"], "02":["1","9","0","5","2","7"], "90":["2","1","9","4","0","5"], "91":["0","2","9","4","1","6"]} },
@@ -140,6 +140,11 @@ function generateResults() {
     });
 }
 
+// FONKSYON KI FE TRAVAY LA: Li mete chif yo nan lòd (e.g., "90" -> "09")
+function normalize(n) {
+    return n.split('').sort().join('');
+}
+
 function calculateCommon() {
     const type1 = document.getElementById('compare1Type').value;
     const val1 = document.getElementById('compare1Val').value.trim();
@@ -147,7 +152,7 @@ function calculateCommon() {
     const val2 = document.getElementById('compare2Val').value.trim();
     const output = document.getElementById('commonResults');
 
-    // Fixed validation logic
+    // Tcheke si nimewo yo egziste nan baz yo
     if(!allData[type1][val1] || !allData[type2][val2]) {
         output.innerHTML = "<p style='color:#ff4d4d; font-weight:bold;'>Erè: Nimewo sa yo pa nan baz ou chwazi yo!</p>";
         return;
@@ -156,24 +161,33 @@ function calculateCommon() {
     const data1 = allData[type1][val1];
     const data2 = allData[type2][val2];
     
-    // Find matching pairs
-    const commonPairs = data1.pairs.filter(p => data2.pairs.includes(p));
-
-    let html = `<div class="sequence-header" style="color:#f8b400; border-bottom-color:#f8b400">KONBINEZON KOMEN</div>`;
+    // Nòmalize lis dezyèm baz la pou konparezon fasil
+    const normPairs2 = data2.pairs.map(p => normalize(p));
     
-    if(commonPairs.length === 0) {
-        html += `<p>Pa gen pair ki sanble.</p>`;
-    } else {
-        commonPairs.forEach(pair => {
-            // Use keys from the first match to generate pick 3
-            const keys = data1.keys[pair]; 
+    let html = `<div class="sequence-header" style="color:#f8b400; border-bottom-color:#f8b400">KONBINEZON KOMEN</div>`;
+    let found = false;
+
+    // Gade chak pair nan premye lis la
+    data1.pairs.forEach(p1 => {
+        // Si vèsyon nòmalize a nan dezyèm lis la tou...
+        if(normPairs2.includes(normalize(p1))) {
+            found = true;
+            const keys = data1.keys[p1]; 
             html += `<div class="pair-section common-card">
-                <div class="pair-title" style="color:#f8b400">Pair Komen: ${pair}</div>
+                <div class="pair-title" style="color:#f8b400">Pair Komen: ${p1}</div>
                 <div class="pick3-grid">`;
-            keys.forEach(k => { html += `<div>${k}${pair} - ${k}${pair[1]}${pair[0]}</div>`; });
+            // Afiche Pick 3 yo
+            keys.forEach(k => { 
+                html += `<div>${k}${p1} - ${k}${p1[1]}${p1[0]}</div>`; 
+            });
             html += `</div></div>`;
-        });
+        }
+    });
+
+    if(!found) {
+        html += `<p>Pa gen pair ki sanble ant yo.</p>`;
     }
+    
     output.innerHTML = html;
 }
 </script>

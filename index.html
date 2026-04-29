@@ -50,22 +50,8 @@
 
     <div class="section-divider">
         <h2 style="color: #f8b400; font-size: 18px;">KONBINEZON 1 & 2 / PÈ</h2>
-        <span class="label-text">Chwa 1:</span>
-        <select id="compare1Type">
-            <option value="base1">Base 1</option>
-            <option value="base2">Base 2</option>
-            <option value="boulPe">Boul Pè</option>
-        </select>
-        <input type="text" id="compare1Val" placeholder="Ex: 09">
-
-        <span class="label-text">Chwa 2:</span>
-        <select id="compare2Type">
-            <option value="base1">Base 1</option>
-            <option value="base2">Base 2</option>
-            <option value="boulPe" selected>Boul Pè</option>
-        </select>
-        <input type="text" id="compare2Val" placeholder="Ex: 00">
-
+        <input type="text" id="compare1Val" placeholder="Chwa 1 (ex: 09)">
+        <input type="text" id="compare2Val" placeholder="Chwa 2 (ex: 00)">
         <button onclick="calculateCommon()">KONPARE KONBINEZON</button>
         <div id="commonResults"></div>
     </div>
@@ -75,21 +61,27 @@
 const allData = {
     base1: {
         "01": { pairs: ["12", "02", "90", "91"], keys: {"12":["0","5"],"02":["1","6"],"90":["2","7"],"91":["3","8"]} },
-        "02": { pairs: ["01", "12", "13", "91"], keys: {"01":["2","7"],"12":["0","5"],"13":["0","5"],"91":["3","8"]} },
-        "03": { pairs: ["12", "23", "24", "02"], keys: {"12":["3","8"],"23":["1","6"],"24":["1","6"],"02":["4","9"]} },
-        "04": { pairs: ["23", "34", "35", "13"], keys: {"23":["4","9"],"34":["2","7"],"35":["2","7"],"13":["5","0"]} },
-        "05": { pairs: ["34", "45", "46", "24"], keys: {"34":["5","0"],"45":["3","8"],"46":["3","8"],"24":["6","1"]} },
-        "06": { pairs: ["45", "56", "57", "35"], keys: {"45":["6","1"],"56":["4","9"],"57":["4","9"],"35":["7","2"]} },
-        "07": { pairs: ["56", "67", "68", "46"], keys: {"56":["7","2"],"67":["5","0"],"68":["5","0"],"46":["8","3"]} },
-        "08": { pairs: ["09", "89", "19", "97"], keys: {"09":["1","6","4","9"],"89":["1","6","4","9"],"19":["0","5","2","7"],"97":["0","5","2","7"]} },
-        "09": { pairs: ["10", "19", "08", "98"], keys: {"10":["2","7","5","0"],"19":["2","7","5","0"],"08":["1","6","4","9"],"98":["1","6","4","9"]} },
-        "10": { pairs: ["01", "91", "89", "80"], keys: {"01":["9","4"],"91":["0","5"],"89":["1","6"],"80":["9","4"]} }
+        "12": { pairs: ["23", "13", "01", "02"], keys: {"23":["1","6"],"13":["2","7"],"01":["0","5"],"02":["0","5"]} },
+        "23": { pairs: ["34", "24", "12", "13"], keys: {"34":["2","7"],"24":["3","8"],"12":["1","6"],"13":["1","6"]} },
+        "34": { pairs: ["45", "35", "23", "24"], keys: {"45":["3","8"],"35":["4","9"],"23":["2","7"],"24":["2","7"]} },
+        "45": { pairs: ["56", "46", "34", "35"], keys: {"56":["4","9"],"46":["5","0"],"34":["3","8"],"35":["3","8"]} },
+        "56": { pairs: ["67", "57", "45", "46"], keys: {"67":["5","0"],"57":["6","1"],"45":["4","9"],"46":["4","9"]} },
+        "67": { pairs: ["78", "68", "56", "57"], keys: {"78":["6","1"],"68":["7","2"],"56":["5","0"],"57":["5","0"]} },
+        "78": { pairs: ["89", "79", "67", "68"], keys: {"89":["7","2"],"79":["8","3"],"67":["6","1"],"68":["6","1"]} },
+        "89": { pairs: ["90", "80", "78", "79"], keys: {"90":["8","3"],"80":["9","4"],"78":["7","2"],"79":["7","2"]} },
+        "90": { pairs: ["01", "91", "89", "80"], keys: {"01":["9","4"],"91":["0","5"],"89":["8","3"],"80":["8","3"]} }
     },
     base2: {
-        "01": { pairs: ["12", "02", "90", "91"], keys: {"12":["0","5"],"02":["1","6"],"90":["2","7"],"91":["3","8"]} },
         "02": { pairs: ["01", "12", "13", "91"], keys: {"01":["2","7"],"12":["0","5"],"13":["0","5"],"91":["3","8"]} },
-        "08": { pairs: ["09", "89", "19", "97"], keys: {"09":["1","6"],"89":["1","6"],"19":["0","5"],"97":["0","5"]} }
-        // Ou ka kontinye ajoute rès yo isit la...
+        "13": { pairs: ["12", "23", "24", "02"], keys: {"12":["3","8"],"23":["1","6"],"24":["1","6"],"02":["4","9"]} },
+        "24": { pairs: ["23", "34", "35", "13"], keys: {"23":["4","9"],"34":["2","7"],"35":["2","7"],"13":["5","0"]} },
+        "35": { pairs: ["34", "45", "46", "24"], keys: {"34":["5","0"],"45":["3","8"],"46":["3","8"],"24":["6","1"]} },
+        "46": { pairs: ["45", "56", "57", "35"], keys: {"45":["6","1"],"56":["4","9"],"57":["4","9"],"35":["7","2"]} },
+        "57": { pairs: ["56", "67", "68", "46"], keys: {"56":["7","2"],"67":["5","0"],"68":["5","0"],"46":["8","3"]} },
+        "68": { pairs: ["67", "78", "79", "57"], keys: {"67":["8","3"],"78":["6","1"],"79":["6","1"],"57":["9","4"]} },
+        "79": { pairs: ["78", "89", "80", "68"], keys: {"78":["9","4"],"89":["7","2"],"80":["7","2"],"68":["0","5"]} },
+        "80": { pairs: ["89", "90", "91", "79"], keys: {"89":["0","5"],"90":["8","3"],"91":["8","3"],"79":["1","6"]} },
+        "91": { pairs: ["90", "01", "02", "80"], keys: {"90":["1","6"],"01":["9","4"],"02":["9","4"],"80":["2","7"]} }
     },
     boulPe: {
         "00": { pairs: ["12", "18", "92", "98", "19"], keys: {"12":["0","5"],"18":["0","5"],"92":["0","5"],"98":["0","5"],"19":["0","5"]} },
@@ -132,25 +124,26 @@ function generateResults() {
 }
 
 function normalize(n) {
-    return n.toString().split('').sort().join('');
+    return n.toString().padStart(2, '0').split('').sort().join('');
 }
 
 function calculateCommon() {
-    const type1 = document.getElementById('compare1Type').value;
-    const val1 = document.getElementById('compare1Val').value.trim();
-    const type2 = document.getElementById('compare2Type').value;
-    const val2 = document.getElementById('compare2Val').value.trim();
+    const val1 = document.getElementById('compare1Val').value.trim().padStart(2, '0');
+    const val2 = document.getElementById('compare2Val').value.trim().padStart(2, '0');
     const output = document.getElementById('commonResults');
 
-    if(!allData[type1] || !allData[type1][val1] || !allData[type2] || !allData[type2][val2]) {
-        output.innerHTML = "<p style='color:#ff4d4d;'>Erè: Nimewo sa a poko gen done oswa li pa nan baz la!</p>";
+    let data1 = null, data2 = null;
+    for(let base in allData) {
+        if(allData[base][val1]) data1 = allData[base][val1];
+        if(allData[base][val2]) data2 = allData[base][val2];
+    }
+
+    if(!data1 || !data2) {
+        output.innerHTML = "<p style='color:#ff4d4d;'>Erè: Yonn nan nimewo yo pa nan baz yo!</p>";
         return;
     }
 
-    const data1 = allData[type1][val1];
-    const data2 = allData[type2][val2];
     const normPairs2 = data2.pairs.map(p => normalize(p));
-    
     let html = `<div class="sequence-header" style="color:#f8b400; border-bottom-color:#f8b400">KONBINEZON KOMEN</div>`;
     let found = false;
 

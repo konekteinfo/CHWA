@@ -6,17 +6,19 @@
     <style>
         body { font-family: 'Segoe UI', sans-serif; padding: 20px; background: #0f0c29; color: white; text-align: center; position: relative; min-height: 100vh; }
         .watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-size: 5rem; opacity: 0.05; pointer-events: none; white-space: nowrap; font-weight: bold; z-index: 0; }
-        .card { background: #1a1a2e; padding: 25px; border-radius: 20px; max-width: 600px; margin: auto; border: 2px solid #00d2ff; position: relative; z-index: 1; box-shadow: 0 0 20px rgba(0, 210, 255, 0.3); }
+        .card { background: #1a1a2e; padding: 25px; border-radius: 20px; max-width: 600px; margin: 20px auto; border: 2px solid #00d2ff; position: relative; z-index: 1; box-shadow: 0 0 20px rgba(0, 210, 255, 0.3); }
         h1 { color: #00d2ff; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 5px; }
         .mirror-box { background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px; margin: 15px 0; font-size: 14px; border: 1px dashed #00d2ff; }
         select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; font-size: 16px; background: #16213e; color: #00d2ff; border: 1px solid #00d2ff; cursor: pointer; }
+        .section-divider { border-top: 2px solid #00d2ff; margin: 30px 0; padding-top: 10px; }
         .sequence-header { color: #ff00ff; font-weight: bold; font-size: 20px; margin: 15px 0; border-bottom: 2px solid #ff00ff; display: inline-block; padding-bottom: 5px; }
         .pair-section { background: #16213e; padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: left; border: 1px solid #0f3460; }
-        .common-section { border: 2px solid #f8b400; background: #2a2401; }
+        .common-card { border: 2px solid #f8b400; background: #2a2401; }
         .pair-title { color: #00d2ff; font-weight: bold; font-size: 18px; margin-bottom: 10px; text-decoration: underline; }
         .pick3-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-family: 'Courier New', monospace; font-size: 16px; color: #fff; }
         .label-text { text-align: left; display: block; margin-top: 10px; color: #00d2ff; font-weight: bold; font-size: 14px; }
-        button { background: #00d2ff; color: #000; border: none; padding: 15px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 18px; }
+        button { background: #00d2ff; color: #000; border: none; padding: 15px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 16px; }
+        .res-box { margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -32,24 +34,32 @@
         0=5 | 1=6 | 2=7 | 3=8 | 4=9
     </div>
 
-    <span class="label-text">Nimewo nan Base 1:</span>
-    <select id="b1Select">
-        <option value="01">01</option><option value="12">12</option><option value="23">23</option>
-        <option value="34" selected>34</option><option value="45">45</option><option value="56">56</option>
-        <option value="67">67</option><option value="78">78</option><option value="89">89</option><option value="90">90</option>
+    <span class="label-text">1. Chwazi Sekans:</span>
+    <select id="baseType" onchange="updateOptions()">
+        <option value="">-- Chwazi Sekans --</option>
+        <option value="base1">Sekans Baz 1</option>
+        <option value="base2">Sekans Baz 2</option>
     </select>
 
-    <span class="label-text">Nimewo nan Base 2:</span>
-    <select id="b2Select">
-        <option value="02">02</option><option value="13">13</option><option value="24" selected>24</option>
-        <option value="35">35</option><option value="46">46</option><option value="57">57</option>
-        <option value="68">68</option><option value="79">79</option><option value="80">80</option><option value="91">91</option>
-    </select>
+    <select id="numberSelect" onchange="generateResults()" style="display:none;"></select>
 
-    <button onclick="calculateCommon()">JWENN KONBINEZON 1 & 2</button>
+    <div id="outputArea" class="res-box">
+        <div id="seqDisplay" class="sequence-header"></div>
+        <div id="results"></div>
+    </div>
 
-    <div id="outputArea">
-        <div id="commonResults"></div>
+    <div class="section-divider">
+        <h2 style="color: #f8b400; font-size: 18px;">KONBINEZON 1 & 2</h2>
+        <span class="label-text">Nimewo nan Base 1:</span>
+        <select id="b1Select">
+            <option value="01">01</option><option value="12">12</option><option value="23">23</option><option value="34">34</option><option value="45">45</option><option value="56">56</option><option value="67">67</option><option value="78">78</option><option value="89">89</option><option value="90">90</option>
+        </select>
+        <span class="label-text">Nimewo nan Base 2:</span>
+        <select id="b2Select">
+            <option value="02">02</option><option value="13">13</option><option value="24">24</option><option value="35">35</option><option value="46">46</option><option value="57">57</option><option value="68">68</option><option value="79">79</option><option value="80">80</option><option value="91">91</option>
+        </select>
+        <button onclick="calculateCommon()">JWENN KONBINEZON 1 & 2</button>
+        <div id="commonResults" class="res-box"></div>
     </div>
 </div>
 
@@ -80,38 +90,53 @@ const base2Data = {
     "91": { pairs: ["90", "01", "02", "80"], keys: {"90":["1","2","8","9","4","0","5"], "01":["9","2","8","0","5","1","6"], "02":["9","1","0","5","6","4"], "80":["9","1","2","7","0","5"]} }
 };
 
+function updateOptions() {
+    const type = document.getElementById('baseType').value;
+    const selector = document.getElementById('numberSelect');
+    selector.innerHTML = '<option value="">-- Chwazi Nimewo --</option>';
+    if(!type) { selector.style.display = "none"; return; }
+    const data = (type === 'base1') ? base1Data : base2Data;
+    for(let num in data) { selector.innerHTML += `<option value="${num}">${num}</option>`; }
+    selector.style.display = "block";
+}
+
+function generateResults() {
+    const type = document.getElementById('baseType').value;
+    const num = document.getElementById('numberSelect').value;
+    const seqDisplay = document.getElementById('seqDisplay');
+    const results = document.getElementById('results');
+    if(!num) { seqDisplay.innerHTML = ""; results.innerHTML = ""; return; }
+    const dataGroup = (type === 'base1') ? base1Data[num] : base2Data[num];
+    seqDisplay.innerHTML = `${num} &rarr; ${dataGroup.pairs.join(" - ")}`;
+    results.innerHTML = "";
+    dataGroup.pairs.forEach(pair => {
+        let keys = dataGroup.keys[pair];
+        let section = `<div class="pair-section"><div class="pair-title">Konbinezon pou: ${pair}</div><div class="pick3-grid">`;
+        keys.forEach(k => { section += `<div>${k}${pair} - ${k}${pair[1]}${pair[0]}</div>`; });
+        section += `</div></div>`;
+        results.innerHTML += section;
+    });
+}
+
 function calculateCommon() {
     const b1Val = document.getElementById('b1Select').value;
     const b2Val = document.getElementById('b2Select').value;
-    const resultsDiv = document.getElementById('commonResults');
-    
+    const commonResults = document.getElementById('commonResults');
     const b1 = base1Data[b1Val];
     const b2 = base2Data[b2Val];
-    
-    // Find shared pairs
     const commonPairs = b1.pairs.filter(p => b2.pairs.includes(p));
-    
-    let html = `<div class="sequence-header">KONBINEZON 1 & 2</div>`;
-    
+    let html = `<div class="sequence-header" style="color:#f8b400; border-bottom-color:#f8b400">REZILTA KONBINEZON</div>`;
     if(commonPairs.length === 0) {
-        html += `<p>Pa gen pair ki sanble ant ${b1Val} ak ${b2Val}.</p>`;
+        html += `<p>Pa gen pair ki sanble.</p>`;
     } else {
         commonPairs.forEach(pair => {
-            const k1 = b1.keys[pair];
-            const k2 = b2.keys[pair];
-            // Find shared keys
-            const commonKeys = k1.filter(k => k2.includes(k));
-            
-            html += `<div class="pair-section common-section">
-                <div class="pair-title">Pair komen: ${pair}</div>
-                <div class="pick3-grid">`;
-            commonKeys.forEach(k => {
-                html += `<div>${k}${pair} - ${k}${pair[1]}${pair[0]}</div>`;
-            });
+            const commonKeys = b1.keys[pair].filter(k => b2.keys[pair].includes(k));
+            html += `<div class="pair-section common-card"><div class="pair-title" style="color:#f8b400">Pair Komen: ${pair}</div><div class="pick3-grid">`;
+            commonKeys.forEach(k => { html += `<div>${k}${pair} - ${k}${pair[1]}${pair[0]}</div>`; });
             html += `</div></div>`;
         });
     }
-    resultsDiv.innerHTML = html;
+    commonResults.innerHTML = html;
 }
 </script>
 </body>

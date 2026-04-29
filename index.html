@@ -9,16 +9,15 @@
         .card { background: #1a1a2e; padding: 25px; border-radius: 20px; max-width: 600px; margin: 20px auto; border: 2px solid #00d2ff; position: relative; z-index: 1; box-shadow: 0 0 20px rgba(0, 210, 255, 0.3); }
         h1 { color: #00d2ff; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 5px; }
         .mirror-box { background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px; margin: 15px 0; font-size: 14px; border: 1px dashed #00d2ff; }
-        select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px; font-size: 16px; background: #16213e; color: #00d2ff; border: 1px solid #00d2ff; cursor: pointer; }
+        select, input { width: 92%; padding: 12px; margin: 8px 0; border-radius: 10px; font-size: 16px; background: #16213e; color: #00d2ff; border: 1px solid #00d2ff; }
         .section-divider { border-top: 2px solid #00d2ff; margin: 30px 0; padding-top: 10px; }
         .sequence-header { color: #ff00ff; font-weight: bold; font-size: 20px; margin: 15px 0; border-bottom: 2px solid #ff00ff; display: inline-block; padding-bottom: 5px; }
         .pair-section { background: #16213e; padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: left; border: 1px solid #0f3460; }
         .common-card { border: 2px solid #f8b400; background: #2a2401; }
         .pair-title { color: #00d2ff; font-weight: bold; font-size: 18px; margin-bottom: 10px; text-decoration: underline; }
         .pick3-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-family: 'Courier New', monospace; font-size: 16px; color: #fff; }
-        .label-text { text-align: left; display: block; margin-top: 10px; color: #00d2ff; font-weight: bold; font-size: 14px; }
+        .label-text { text-align: left; display: block; margin-top: 10px; color: #00d2ff; font-weight: bold; font-size: 14px; padding-left: 5%; }
         button { background: #00d2ff; color: #000; border: none; padding: 15px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 16px; }
-        .res-box { margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -44,7 +43,7 @@
 
     <select id="numberSelect" onchange="generateResults()" style="display:none;"></select>
 
-    <div id="outputArea" class="res-box">
+    <div id="outputArea">
         <div id="seqDisplay" class="sequence-header"></div>
         <div id="results"></div>
     </div>
@@ -58,23 +57,23 @@
             <option value="base2">Base 2</option>
             <option value="boulPe">Boul Pè</option>
         </select>
-        <input type="text" id="compare1Val" placeholder="Ex: 34 oswa 00" style="width:92%; padding:12px; margin-top:5px; border-radius:10px; border:1px solid #00d2ff; background:#16213e; color:white;">
+        <input type="text" id="compare1Val" placeholder="Ex: 34 oswa 00">
 
-        <span class="label-text" style="margin-top:15px;">Chwa 2:</span>
+        <span class="label-text">Chwa 2:</span>
         <select id="compare2Type">
             <option value="base1">Base 1</option>
             <option value="base2" selected>Base 2</option>
             <option value="boulPe">Boul Pè</option>
         </select>
-        <input type="text" id="compare2Val" placeholder="Ex: 24 oswa 11" style="width:92%; padding:12px; margin-top:5px; border-radius:10px; border:1px solid #00d2ff; background:#16213e; color:white;">
+        <input type="text" id="compare2Val" placeholder="Ex: 24 oswa 11">
 
         <button onclick="calculateCommon()">KONPARE KONBINEZON</button>
-        <div id="commonResults" class="res-box"></div>
+        <div id="commonResults"></div>
     </div>
 </div>
 
 <script>
-// Data structure containing Base 1, Base 2 and Boul Pe
+// Logic Data
 const allData = {
     base1: {
         "01": { pairs: ["12", "02", "90", "91"], keys: {"12":["0","9","1","6","2","7"], "02":["1","9","0","5","2","7"], "90":["2","1","9","4","0","5"], "91":["0","2","9","4","1","6"]} },
@@ -148,26 +147,28 @@ function calculateCommon() {
     const val2 = document.getElementById('compare2Val').value.trim();
     const output = document.getElementById('commonResults');
 
+    // Fixed validation logic
     if(!allData[type1][val1] || !allData[type2][val2]) {
-        output.innerHTML = "<p style='color:red;'>Nimewo sa yo pa egziste nan baz sa yo!</p>";
+        output.innerHTML = "<p style='color:#ff4d4d; font-weight:bold;'>Erè: Nimewo sa yo pa nan baz ou chwazi yo!</p>";
         return;
     }
 
     const data1 = allData[type1][val1];
     const data2 = allData[type2][val2];
+    
+    // Find matching pairs
     const commonPairs = data1.pairs.filter(p => data2.pairs.includes(p));
 
     let html = `<div class="sequence-header" style="color:#f8b400; border-bottom-color:#f8b400">KONBINEZON KOMEN</div>`;
     
     if(commonPairs.length === 0) {
-        html += `<p>Pa gen pair ki sanble ant yo.</p>`;
+        html += `<p>Pa gen pair ki sanble.</p>`;
     } else {
         commonPairs.forEach(pair => {
-            // Logic: Output the pick 3 based on the shared pair
-            // We use keys from the first selection's logic for consistency
+            // Use keys from the first match to generate pick 3
             const keys = data1.keys[pair]; 
             html += `<div class="pair-section common-card">
-                <div class="pair-title" style="color:#f8b400">Pair ki sanble: ${pair}</div>
+                <div class="pair-title" style="color:#f8b400">Pair Komen: ${pair}</div>
                 <div class="pick3-grid">`;
             keys.forEach(k => { html += `<div>${k}${pair} - ${k}${pair[1]}${pair[0]}</div>`; });
             html += `</div></div>`;

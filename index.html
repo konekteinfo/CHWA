@@ -6,253 +6,49 @@
 <title>CHWA PICK 3 - XpliciTek</title>
 <style>
   :root {
-    --bg: #0f0c29;
-    --panel: #1a1a2e;
-    --panel2: #16213e;
-    --cyan: #00d2ff;
-    --gold: #f8b400;
-    --magenta: #ff00ff;
-    --green: #00ff99;
-    --red: #ff4466;
-    --muted: #888;
-    --border: #0f3460;
-    --pe-color: #ff6b35;
+    --bg:#0f0c29;--panel:#1a1a2e;--panel2:#16213e;
+    --cyan:#00d2ff;--gold:#f8b400;--magenta:#ff00ff;
+    --green:#00ff99;--red:#ff4466;--muted:#888;
+    --border:#0f3460;--pe-color:#ff6b35;
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'Segoe UI', sans-serif;
-    background: var(--bg);
-    color: white;
-    text-align: center;
-    min-height: 100vh;
-    padding: 20px;
-  }
-
-  .watermark {
-    position: fixed;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg);
-    font-size: 5rem;
-    opacity: 0.04;
-    pointer-events: none;
-    white-space: nowrap;
-    font-weight: bold;
-    z-index: 0;
-    color: var(--cyan);
-  }
-
-  .card {
-    background: var(--panel);
-    padding: 25px;
-    border-radius: 20px;
-    max-width: 680px;
-    margin: 20px auto;
-    border: 2px solid var(--cyan);
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 0 24px rgba(0,210,255,0.25);
-  }
-
-  h1 {
-    color: var(--cyan);
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    margin-bottom: 4px;
-    font-size: 28px;
-  }
-
-  .sub { color: var(--muted); font-size: 13px; margin-bottom: 16px; }
-
-  .mirror-box {
-    background: rgba(0,210,255,0.07);
-    border: 1px dashed var(--cyan);
-    border-radius: 10px;
-    padding: 10px 14px;
-    font-size: 13px;
-    margin-bottom: 18px;
-    letter-spacing: 2px;
-  }
-
-  label {
-    display: block;
-    text-align: left;
-    color: var(--cyan);
-    font-weight: bold;
-    font-size: 13px;
-    margin: 12px 0 4px;
-  }
-
-  select {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 15px;
-    background: var(--panel2);
-    color: var(--cyan);
-    border: 1px solid var(--cyan);
-    cursor: pointer;
-    outline: none;
-  }
-
-  select:focus { box-shadow: 0 0 8px rgba(0,210,255,0.4); }
-
-  button {
-    background: var(--cyan);
-    color: #000;
-    border: none;
-    padding: 13px;
-    border-radius: 10px;
-    width: 100%;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 15px;
-    margin-top: 12px;
-    letter-spacing: 1px;
-    transition: background 0.2s, transform 0.1s;
-  }
-  button:hover { background: #00b8e0; }
-  button:active { transform: scale(0.98); }
-
-  .btn-gold { background: var(--gold); }
-  .btn-gold:hover { background: #d9a000; }
-
-  .btn-pe { background: var(--pe-color); }
-  .btn-pe:hover { background: #e0551f; }
-
-  /* Section divider */
-  .section-divider {
-    border-top: 2px solid var(--cyan);
-    margin: 28px 0 16px;
-    padding-top: 14px;
-  }
-
-  .section-title {
-    color: var(--gold);
-    font-size: 17px;
-    font-weight: bold;
-    margin-bottom: 4px;
-  }
-
-  /* Sequence header */
-  .seq-header {
-    color: var(--magenta);
-    font-weight: bold;
-    font-size: 19px;
-    border-bottom: 2px solid var(--magenta);
-    display: inline-block;
-    padding-bottom: 4px;
-    margin: 14px 0 12px;
-    letter-spacing: 2px;
-  }
-
-  /* Pair section */
-  .pair-section {
-    background: var(--panel2);
-    padding: 14px 16px;
-    border-radius: 12px;
-    margin-bottom: 14px;
-    text-align: left;
-    border: 1px solid var(--border);
-  }
-
-  .pair-title {
-    color: var(--cyan);
-    font-weight: bold;
-    font-size: 16px;
-    margin-bottom: 10px;
-    text-decoration: underline;
-    letter-spacing: 1px;
-  }
-
-  /* Pick3 grid */
-  .pick3-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px 16px;
-    font-family: 'Courier New', monospace;
-    font-size: 15px;
-    color: #fff;
-  }
-
-  .pick3-item { padding: 3px 0; }
-
-  /* Common card (gold) */
-  .common-card {
-    border: 2px solid var(--gold) !important;
-    background: #1e1800 !important;
-  }
-  .common-card .pair-title { color: var(--gold); }
-
-  /* Pe card (orange) */
-  .pe-card {
-    border: 2px solid var(--pe-color) !important;
-    background: #1e0e05 !important;
-  }
-  .pe-card .pair-title { color: var(--pe-color); }
-
-  /* Pe companion pills */
-  .pe-companions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 10px;
-  }
-  .pe-pill {
-    background: rgba(255,107,53,0.15);
-    border: 1px solid var(--pe-color);
-    border-radius: 6px;
-    padding: 3px 10px;
-    font-family: 'Courier New', monospace;
-    font-size: 14px;
-    color: var(--pe-color);
-  }
-
-  .res-box { margin-top: 16px; }
-
-  /* Count badge */
-  .count-badge {
-    display: inline-block;
-    background: rgba(0,210,255,0.12);
-    border: 1px solid var(--cyan);
-    border-radius: 20px;
-    padding: 2px 10px;
-    font-size: 12px;
-    color: var(--cyan);
-    margin-left: 8px;
-    vertical-align: middle;
-  }
-
-  /* Tab bar for sections */
-  .tab-bar {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 14px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .tab-btn {
-    background: var(--panel2);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 8px 18px;
-    border-radius: 8px;
-    font-size: 13px;
-    cursor: pointer;
-    font-weight: bold;
-    letter-spacing: 1px;
-    transition: all 0.2s;
-    width: auto;
-    margin: 0;
-  }
-  .tab-btn.active { background: var(--cyan); color: #000; border-color: var(--cyan); }
-  .tab-btn:hover:not(.active) { border-color: var(--cyan); color: var(--cyan); }
-
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
-
-  .empty-msg { color: var(--muted); font-size: 13px; padding: 20px; text-align: center; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:white;text-align:center;min-height:100vh;padding:20px;}
+  .watermark{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-45deg);font-size:5rem;opacity:0.04;pointer-events:none;white-space:nowrap;font-weight:bold;z-index:0;color:var(--cyan);}
+  .card{background:var(--panel);padding:25px;border-radius:20px;max-width:700px;margin:20px auto;border:2px solid var(--cyan);position:relative;z-index:1;box-shadow:0 0 24px rgba(0,210,255,0.25);}
+  h1{color:var(--cyan);text-transform:uppercase;letter-spacing:4px;margin-bottom:4px;font-size:28px;}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:16px;}
+  .mirror-box{background:rgba(0,210,255,0.07);border:1px dashed var(--cyan);border-radius:10px;padding:10px 14px;font-size:13px;margin-bottom:18px;letter-spacing:2px;}
+  label{display:block;text-align:left;color:var(--cyan);font-weight:bold;font-size:13px;margin:12px 0 4px;}
+  select{width:100%;padding:12px;border-radius:10px;font-size:15px;background:var(--panel2);color:var(--cyan);border:1px solid var(--cyan);cursor:pointer;outline:none;}
+  select:focus{box-shadow:0 0 8px rgba(0,210,255,0.4);}
+  button{background:var(--cyan);color:#000;border:none;padding:13px;border-radius:10px;width:100%;font-weight:bold;cursor:pointer;font-size:15px;margin-top:12px;letter-spacing:1px;transition:background 0.2s,transform 0.1s;}
+  button:hover{background:#00b8e0;}
+  button:active{transform:scale(0.98);}
+  .btn-gold{background:var(--gold);}
+  .btn-gold:hover{background:#d9a000;}
+  .section-divider{border-top:2px solid var(--cyan);margin:28px 0 16px;padding-top:14px;}
+  .section-title{color:var(--gold);font-size:17px;font-weight:bold;margin-bottom:4px;}
+  .seq-header{color:var(--magenta);font-weight:bold;font-size:19px;border-bottom:2px solid var(--magenta);display:inline-block;padding-bottom:4px;margin:14px 0 12px;letter-spacing:2px;}
+  .pair-section{background:var(--panel2);padding:14px 16px;border-radius:12px;margin-bottom:14px;text-align:left;border:1px solid var(--border);}
+  .pair-title{color:var(--cyan);font-weight:bold;font-size:16px;margin-bottom:10px;text-decoration:underline;letter-spacing:1px;}
+  .pick3-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;font-family:'Courier New',monospace;font-size:15px;color:#fff;}
+  .pick3-item{padding:3px 0;}
+  .common-card{border:2px solid var(--gold)!important;background:#1e1800!important;}
+  .common-card .pair-title{color:var(--gold);}
+  .count-badge{display:inline-block;background:rgba(0,210,255,0.12);border:1px solid var(--cyan);border-radius:20px;padding:2px 10px;font-size:12px;color:var(--cyan);margin-left:8px;vertical-align:middle;}
+  .count-gold{border-color:var(--gold)!important;color:var(--gold)!important;background:rgba(248,180,0,0.08)!important;}
+  .res-box{margin-top:16px;}
+  .empty-msg{color:var(--muted);font-size:13px;padding:20px;text-align:center;}
+  .sub-label{font-size:11px;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;margin:10px 0 4px;text-align:left;}
+  /* Unified compare layout */
+  .cmp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .cmp-col{text-align:left;}
+  .side-a{color:#7df9ff;}
+  .side-b{color:#ffdd57;}
+  .side-common{color:var(--green);}
+  /* Info pills for pair context */
+  .pair-ctx{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+  .ctx-box{background:var(--panel2);border-radius:10px;padding:10px;border:1px solid;}
 </style>
 </head>
 <body>
@@ -264,323 +60,291 @@
   <p class="sub">Strateji pa XpliciTek</p>
 
   <div class="mirror-box">
-    <strong>RÈG MIWA (MIRROR):</strong> &nbsp; 0=5 &nbsp;|&nbsp; 1=6 &nbsp;|&nbsp; 2=7 &nbsp;|&nbsp; 3=8 &nbsp;|&nbsp; 4=9
+    <strong>RÈG MIWA (MIRROR):</strong> &nbsp;0=5 &nbsp;|&nbsp; 1=6 &nbsp;|&nbsp; 2=7 &nbsp;|&nbsp; 3=8 &nbsp;|&nbsp; 4=9
   </div>
 
-  <!-- ══════════════════════════════════════════ -->
-  <!-- SECTION 1: SINGLE LOOKUP                  -->
-  <!-- ══════════════════════════════════════════ -->
+  <!-- ══ SECTION 1: SINGLE LOOKUP ══ -->
   <label>1. Chwazi Sekans:</label>
   <select id="baseType" onchange="updateOptions()">
     <option value="">-- Chwazi Sekans --</option>
     <option value="base1">Sekans Baz 1</option>
     <option value="base2">Sekans Baz 2</option>
   </select>
-
-  <select id="numberSelect" onchange="generateResults()" style="display:none">
+  <select id="numberSelect" style="display:none" onchange="generateResults()">
     <option value="">-- Chwazi Nimewo --</option>
   </select>
-
   <div id="outputArea" class="res-box">
     <div id="seqDisplay" class="seq-header" style="display:none"></div>
     <div id="results"></div>
   </div>
 
-  <!-- ══════════════════════════════════════════ -->
-  <!-- SECTION 2: KONBINEZON 1 & 2               -->
-  <!-- ══════════════════════════════════════════ -->
+  <!-- ══ SECTION 2: UNIFIED KONBINEZON ══ -->
   <div class="section-divider">
-    <div class="section-title">KONBINEZON BAZ 1 &amp; BAZ 2</div>
+    <div class="section-title">⚡ KONBINEZON — Konpare Nenpòt Sekans</div>
+    <p style="color:var(--muted);font-size:12px;margin-top:4px">Baz 1 × Baz 1 &nbsp;|&nbsp; Baz 2 × Baz 2 &nbsp;|&nbsp; Baz 1 × Baz 2 &nbsp;|&nbsp; Baz × Pè &nbsp;|&nbsp; Pè × Pè</p>
   </div>
 
-  <label>Nimewo nan Baz 1:</label>
-  <select id="b1Select">
-    <option value="01">01</option><option value="12">12</option><option value="23">23</option>
-    <option value="34">34</option><option value="45">45</option><option value="56">56</option>
-    <option value="67">67</option><option value="78">78</option><option value="89">89</option>
-    <option value="90">90</option>
-  </select>
-
-  <label>Nimewo nan Baz 2:</label>
-  <select id="b2Select">
-    <option value="02">02</option><option value="13">13</option><option value="24">24</option>
-    <option value="35">35</option><option value="46">46</option><option value="57">57</option>
-    <option value="68">68</option><option value="79">79</option><option value="80">80</option>
-    <option value="91">91</option>
-  </select>
-
-  <button class="btn-gold" onclick="calculateCommon()">JWENN KONBINEZON BAZ 1 &amp; 2</button>
-  <div id="commonResults" class="res-box"></div>
-
-  <!-- ══════════════════════════════════════════ -->
-  <!-- SECTION 3: COMPARE TO BOUL PÈ             -->
-  <!-- ══════════════════════════════════════════ -->
-  <div class="section-divider">
-    <div class="section-title" style="color:var(--pe-color)">KONPARE AK BOUL PÈ</div>
+  <div class="cmp-row">
+    <div class="cmp-col">
+      <label>Sekans A:</label>
+      <select id="typeA" onchange="updateNumsA()">
+        <option value="">-- Chwazi --</option>
+        <option value="base1">Baz 1</option>
+        <option value="base2">Baz 2</option>
+        <option value="pe">Boul Pè</option>
+      </select>
+      <select id="numA" style="display:none;margin-top:8px">
+        <option value="">-- Nimewo --</option>
+      </select>
+    </div>
+    <div class="cmp-col">
+      <label>Sekans B:</label>
+      <select id="typeB" onchange="updateNumsB()">
+        <option value="">-- Chwazi --</option>
+        <option value="base1">Baz 1</option>
+        <option value="base2">Baz 2</option>
+        <option value="pe">Boul Pè</option>
+      </select>
+      <select id="numB" style="display:none;margin-top:8px">
+        <option value="">-- Nimewo --</option>
+      </select>
+    </div>
   </div>
 
-  <label>1. Chwazi Sekans:</label>
-  <select id="peBaseType" onchange="updatePeOptions()">
-    <option value="">-- Chwazi Baz --</option>
-    <option value="base1">Sekans Baz 1</option>
-    <option value="base2">Sekans Baz 2</option>
-  </select>
+  <button class="btn-gold" onclick="runCompare()">⚡ JWENN KONBINEZON</button>
+  <div id="compareOut" class="res-box"></div>
 
-  <select id="peNumSelect" style="display:none">
-    <option value="">-- Chwazi Nimewo --</option>
-  </select>
-
-  <label>2. Chwazi Boul Pè:</label>
-  <select id="peBoulSelect">
-    <option value="00">00</option><option value="11">11</option><option value="22">22</option>
-    <option value="33">33</option><option value="44">44</option><option value="55">55</option>
-    <option value="66">66</option><option value="77">77</option><option value="88">88</option>
-    <option value="99">99</option>
-  </select>
-
-  <button class="btn-pe" onclick="compareWithPe()">KONPARE AK BOUL PÈ</button>
-  <div id="peResults" class="res-box"></div>
-
-</div><!-- end card -->
+</div>
 
 <script>
-// ════════════════════════════════════════════════════════
-// DATA
-// ════════════════════════════════════════════════════════
+// ════════════════════ DATA ════════════════════
 
 const base1Data = {
-  "01": { pairs: ["12","02","90","91"], keys: {"12":["0","9","1","6","2","7"], "02":["1","9","0","5","2","7"], "90":["2","1","9","4","0","5"], "91":["0","2","9","4","1","6"]} },
-  "12": { pairs: ["23","13","01","02"], keys: {"23":["1","0","2","7","3","8"], "13":["2","0","1","6","3","8"], "01":["3","2","0","5","1","6"], "02":["1","3","0","5","2","7"]} },
-  "23": { pairs: ["34","24","12","13"], keys: {"34":["2","1","3","8","4","9"], "24":["3","1","2","7","4","9"], "12":["4","3","1","6","2","7"], "13":["2","4","1","6","3","8"]} },
-  "34": { pairs: ["45","35","23","24"], keys: {"45":["3","2","4","9","5","0"], "35":["4","2","3","8","5","0"], "23":["5","4","2","7","3","8"], "24":["3","5","2","7","4","9"]} },
-  "45": { pairs: ["56","46","34","35"], keys: {"56":["4","3","5","0","6","1"], "46":["5","3","4","9","6","1"], "34":["6","5","3","8","4","9"], "35":["4","6","3","8","5","0"]} },
-  "56": { pairs: ["67","57","45","46"], keys: {"67":["5","4","6","1","7","2"], "57":["6","4","5","0","7","2"], "45":["7","6","4","9","5","0"], "46":["5","7","4","9","6","1"]} },
-  "67": { pairs: ["78","68","56","57"], keys: {"78":["6","5","7","2","8","3"], "68":["7","5","6","1","8","3"], "56":["8","7","5","0","6","1"], "57":["6","8","5","0","7","2"]} },
-  "78": { pairs: ["89","79","67","68"], keys: {"89":["7","6","8","3","9","4"], "79":["8","6","7","2","9","4"], "67":["9","8","6","1","7","2"], "68":["7","9","6","1","8","3"]} },
-  "89": { pairs: ["90","80","78","79"], keys: {"90":["8","7","9","4","0","5"], "80":["9","7","8","3","0","5"], "78":["0","9","7","2","8","3"], "79":["8","0","7","2","9","4"]} },
-  "90": { pairs: ["01","91","89","80"], keys: {"01":["9","8","0","5","1","6"], "91":["0","8","9","4","1","6"], "89":["1","0","8","3","9","4"], "80":["9","1","8","3","0","5"]} }
+  "01":{pairs:["12","02","90","91"],keys:{"12":["0","9","1","6","2","7"],"02":["1","9","0","5","2","7"],"90":["2","1","9","4","0","5"],"91":["0","2","9","4","1","6"]}},
+  "12":{pairs:["23","13","01","02"],keys:{"23":["1","0","2","7","3","8"],"13":["2","0","1","6","3","8"],"01":["3","2","0","5","1","6"],"02":["1","3","0","5","2","7"]}},
+  "23":{pairs:["34","24","12","13"],keys:{"34":["2","1","3","8","4","9"],"24":["3","1","2","7","4","9"],"12":["4","3","1","6","2","7"],"13":["2","4","1","6","3","8"]}},
+  "34":{pairs:["45","35","23","24"],keys:{"45":["3","2","4","9","5","0"],"35":["4","2","3","8","5","0"],"23":["5","4","2","7","3","8"],"24":["3","5","2","7","4","9"]}},
+  "45":{pairs:["56","46","34","35"],keys:{"56":["4","3","5","0","6","1"],"46":["5","3","4","9","6","1"],"34":["6","5","3","8","4","9"],"35":["4","6","3","8","5","0"]}},
+  "56":{pairs:["67","57","45","46"],keys:{"67":["5","4","6","1","7","2"],"57":["6","4","5","0","7","2"],"45":["7","6","4","9","5","0"],"46":["5","7","4","9","6","1"]}},
+  "67":{pairs:["78","68","56","57"],keys:{"78":["6","5","7","2","8","3"],"68":["7","5","6","1","8","3"],"56":["8","7","5","0","6","1"],"57":["6","8","5","0","7","2"]}},
+  "78":{pairs:["89","79","67","68"],keys:{"89":["7","6","8","3","9","4"],"79":["8","6","7","2","9","4"],"67":["9","8","6","1","7","2"],"68":["7","9","6","1","8","3"]}},
+  "89":{pairs:["90","80","78","79"],keys:{"90":["8","7","9","4","0","5"],"80":["9","7","8","3","0","5"],"78":["0","9","7","2","8","3"],"79":["8","0","7","2","9","4"]}},
+  "90":{pairs:["01","91","89","80"],keys:{"01":["9","8","0","5","1","6"],"91":["0","8","9","4","1","6"],"89":["1","0","8","3","9","4"],"80":["9","1","8","3","0","5"]}}
 };
 
 const base2Data = {
-  "02": { pairs: ["01","12","13","91"], keys: {"01":["2","3","9","0","5","1","6"], "12":["0","3","9","1","6","2","7"], "13":["0","2","1","6","7","5"], "91":["0","2","3","8","1","6"]} },
-  "13": { pairs: ["12","23","24","02"], keys: {"12":["3","4","0","1","6","2","7"], "23":["1","4","0","2","7","3","8"], "24":["1","3","2","7","8","6"], "02":["1","3","4","9","2","7"]} },
-  "24": { pairs: ["23","34","35","13"], keys: {"23":["4","5","1","2","7","3","8"], "34":["2","5","1","3","8","4","9"], "35":["2","4","3","8","9","7"], "13":["2","4","5","0","3","8"]} },
-  "35": { pairs: ["34","45","46","24"], keys: {"34":["5","6","2","3","8","4","9"], "45":["3","6","2","4","9","5","0"], "46":["3","5","4","9","0","8"], "24":["3","5","6","1","4","9"]} },
-  "46": { pairs: ["45","56","57","35"], keys: {"45":["6","7","3","4","9","5","0"], "56":["4","7","3","5","0","6","1"], "57":["4","6","5","0","1","9"], "35":["4","6","7","2","5","0"]} },
-  "57": { pairs: ["56","67","68","46"], keys: {"56":["7","8","4","5","0","6","1"], "67":["5","8","4","6","1","7","2"], "68":["5","7","6","1","2","0"], "46":["5","7","8","3","6","1"]} },
-  "68": { pairs: ["67","78","79","57"], keys: {"67":["8","9","5","6","1","7","2"], "78":["6","9","5","7","2","8","3"], "79":["6","8","7","2","3","1"], "57":["6","8","9","4","7","2"]} },
-  "79": { pairs: ["78","89","80","68"], keys: {"78":["9","0","6","7","2","8","3"], "89":["7","0","6","8","3","9","4"], "80":["7","9","8","3","4","2"], "68":["7","9","0","5","8","3"]} },
-  "80": { pairs: ["89","90","91","79"], keys: {"89":["0","1","7","8","3","9","4"], "90":["8","1","7","9","4","0","5"], "91":["8","0","9","4","5","3"], "79":["8","0","1","6","9","4"]} },
-  "91": { pairs: ["90","01","02","80"], keys: {"90":["1","2","8","9","4","0","5"], "01":["9","2","8","0","5","1","6"], "02":["9","1","0","5","6","4"], "80":["9","1","2","7","0","5"]} }
+  "02":{pairs:["01","12","13","91"],keys:{"01":["2","3","9","0","5","1","6"],"12":["0","3","9","1","6","2","7"],"13":["0","2","1","6","7","5"],"91":["0","2","3","8","1","6"]}},
+  "13":{pairs:["12","23","24","02"],keys:{"12":["3","4","0","1","6","2","7"],"23":["1","4","0","2","7","3","8"],"24":["1","3","2","7","8","6"],"02":["1","3","4","9","2","7"]}},
+  "24":{pairs:["23","34","35","13"],keys:{"23":["4","5","1","2","7","3","8"],"34":["2","5","1","3","8","4","9"],"35":["2","4","3","8","9","7"],"13":["2","4","5","0","3","8"]}},
+  "35":{pairs:["34","45","46","24"],keys:{"34":["5","6","2","3","8","4","9"],"45":["3","6","2","4","9","5","0"],"46":["3","5","4","9","0","8"],"24":["3","5","6","1","4","9"]}},
+  "46":{pairs:["45","56","57","35"],keys:{"45":["6","7","3","4","9","5","0"],"56":["4","7","3","5","0","6","1"],"57":["4","6","5","0","1","9"],"35":["4","6","7","2","5","0"]}},
+  "57":{pairs:["56","67","68","46"],keys:{"56":["7","8","4","5","0","6","1"],"67":["5","8","4","6","1","7","2"],"68":["5","7","6","1","2","0"],"46":["5","7","8","3","6","1"]}},
+  "68":{pairs:["67","78","79","57"],keys:{"67":["8","9","5","6","1","7","2"],"78":["6","9","5","7","2","8","3"],"79":["6","8","7","2","3","1"],"57":["6","8","9","4","7","2"]}},
+  "79":{pairs:["78","89","80","68"],keys:{"78":["9","0","6","7","2","8","3"],"89":["7","0","6","8","3","9","4"],"80":["7","9","8","3","4","2"],"68":["7","9","0","5","8","3"]}},
+  "80":{pairs:["89","90","91","79"],keys:{"89":["0","1","7","8","3","9","4"],"90":["8","1","7","9","4","0","5"],"91":["8","0","9","4","5","3"],"79":["8","0","1","6","9","4"]}},
+  "91":{pairs:["90","01","02","80"],keys:{"90":["1","2","8","9","4","0","5"],"01":["9","2","8","0","5","1","6"],"02":["9","1","0","5","6","4"],"80":["9","1","2","7","0","5"]}}
 };
 
-// Boul Pè: key = Pe boul (double), values = companion 2-digit bouln
 const boulPe = {
-  "00": [12,18,92,98,19],
-  "11": [23,29,3,9,20],
-  "22": [34,30,14,10,31],
-  "33": [45,41,25,21,42],
-  "44": [56,52,36,32,53],
-  "55": [67,63,47,43,64],
-  "66": [78,74,58,54,75],
-  "77": [89,85,69,65,86],
-  "88": [90,96,70,76,97],
-  "99": [1,7,81,87,8]
+  "00":[12,18,92,98,19],"11":[23,29,3,9,20],"22":[34,30,14,10,31],
+  "33":[45,41,25,21,42],"44":[56,52,36,32,53],"55":[67,63,47,43,64],
+  "66":[78,74,58,54,75],"77":[89,85,69,65,86],"88":[90,96,70,76,97],
+  "99":[1,7,81,87,8]
 };
 
-// Pre-computed: which Pe entry maps to each Base pair
-// (verified: each Base1 pair maps to 2 Pe entries; each Base2 pair maps to 1 Pe entry)
-const base1ToPe = {
-  "01": ["22","99"], "12": ["33","00"], "23": ["11","44"], "34": ["22","55"],
-  "45": ["33","66"], "56": ["44","77"], "67": ["55","88"], "78": ["66","99"],
-  "89": ["77","00"], "90": ["11","88"]
-};
-const base2ToPe = {
-  "02": ["11"], "13": ["22"], "24": ["33"], "35": ["44"],
-  "46": ["55"], "57": ["66"], "68": ["77"], "79": ["88"],
-  "80": ["99"], "91": ["00"]
-};
+// ════════════════════ HELPERS ════════════════════
 
-// ════════════════════════════════════════════════════════
-// HELPERS
-// ════════════════════════════════════════════════════════
+function pad2(n){return String(n).padStart(2,'0');}
+function mirrorOf(s){return s[1]+s[0];}
 
-function pad2(n) { return String(n).padStart(2,'0'); }
-
-// Generate Pick3 combos: key prefix + pair (straight & box)
-function makePick3(keys, pair) {
-  const combos = [];
-  keys.forEach(k => {
-    const c1 = k + pair;
-    const c2 = k + pair[1] + pair[0];
-    if (c1 === c2) combos.push(c1); // triple like 111
-    else combos.push(c1 + ' - ' + c2);
+function makePick3(keys,pair){
+  return keys.map(k=>{
+    const c1=k+pair,c2=k+pair[1]+pair[0];
+    return c1===c2?c1:c1+' - '+c2;
   });
-  return combos;
 }
 
-// Render a standard pair section
-function renderPairSection(pair, keys, cssClass, titleColor) {
-  const combos = makePick3(keys, pair);
-  const count = keys.length * (keys.every((k,_,a) => k+pair !== k+pair[1]+pair[0]) ? 2 : 1);
-  return `
-    <div class="pair-section ${cssClass||''}">
-      <div class="pair-title" style="${titleColor ? 'color:'+titleColor : ''}">
-        Konbinezon pou: ${pair}
-        <span class="count-badge">${combos.length * (combos[0].includes(' - ') ? 1 : 1)} nimewo</span>
-      </div>
-      <div class="pick3-grid">
-        ${combos.map(c => `<div class="pick3-item">${c}</div>`).join('')}
-      </div>
+function renderCombos(combos,cls){
+  return `<div class="pick3-grid">${combos.map(c=>`<div class="pick3-item ${cls||''}">${c}</div>`).join('')}</div>`;
+}
+
+// ════════════════════ SECTION 1 ════════════════════
+
+function updateOptions(){
+  const t=document.getElementById('baseType').value;
+  const sel=document.getElementById('numberSelect');
+  sel.innerHTML='<option value="">-- Chwazi Nimewo --</option>';
+  document.getElementById('seqDisplay').style.display='none';
+  document.getElementById('results').innerHTML='';
+  if(!t){sel.style.display='none';return;}
+  const data=t==='base1'?base1Data:base2Data;
+  Object.keys(data).forEach(n=>sel.innerHTML+=`<option value="${n}">${n}</option>`);
+  sel.style.display='block';
+}
+
+function generateResults(){
+  const t=document.getElementById('baseType').value;
+  const num=document.getElementById('numberSelect').value;
+  const sd=document.getElementById('seqDisplay');
+  const res=document.getElementById('results');
+  if(!num){sd.style.display='none';res.innerHTML='';return;}
+  const dg=(t==='base1'?base1Data:base2Data)[num];
+  sd.innerHTML=`${num} &rarr; ${dg.pairs.join(' · ')}`;
+  sd.style.display='inline-block';
+  res.innerHTML=dg.pairs.map(p=>{
+    const combos=makePick3(dg.keys[p],p);
+    const total=combos.reduce((a,c)=>a+(c.includes(' - ')?2:1),0);
+    return `<div class="pair-section">
+      <div class="pair-title">Konbinezon pou: ${p} <span class="count-badge">${total} nimewo</span></div>
+      ${renderCombos(combos)}
     </div>`;
+  }).join('');
 }
 
-// ════════════════════════════════════════════════════════
-// SECTION 1: SINGLE LOOKUP
-// ════════════════════════════════════════════════════════
+// ════════════════════ SECTION 2: UNIFIED COMPARE ════════════════════
 
-function updateOptions() {
-  const type = document.getElementById('baseType').value;
-  const sel = document.getElementById('numberSelect');
-  sel.innerHTML = '<option value="">-- Chwazi Nimewo --</option>';
-  document.getElementById('seqDisplay').style.display = 'none';
-  document.getElementById('results').innerHTML = '';
-  if (!type) { sel.style.display = 'none'; return; }
-  const data = type === 'base1' ? base1Data : base2Data;
-  Object.keys(data).forEach(num => {
-    sel.innerHTML += `<option value="${num}">${num}</option>`;
+const NUMS={base1:["01","12","23","34","45","56","67","78","89","90"],base2:["02","13","24","35","46","57","68","79","80","91"],pe:["00","11","22","33","44","55","66","77","88","99"]};
+
+function fillSel(sel,nums){sel.innerHTML='<option value="">-- Nimewo --</option>';nums.forEach(n=>sel.innerHTML+=`<option value="${n}">${n}</option>`);sel.style.display='block';}
+function updateNumsA(){const t=document.getElementById('typeA').value;const s=document.getElementById('numA');if(!t){s.style.display='none';return;}fillSel(s,NUMS[t]);}
+function updateNumsB(){const t=document.getElementById('typeB').value;const s=document.getElementById('numB');if(!t){s.style.display='none';return;}fillSel(s,NUMS[t]);}
+
+// Get normalized entry: {pairs, keys}
+// For Pe: pairs=companion list as 2-digit strings, keys[pair]=[peDigit]
+function getEntry(type,num){
+  if(type==='base1')return base1Data[num];
+  if(type==='base2')return base2Data[num];
+  const vals=boulPe[num].map(v=>pad2(v));
+  const digit=num[0];
+  const keys={};
+  vals.forEach(v=>{keys[v]=[digit];});
+  return{pairs:vals,keys};
+}
+
+// Find common pairs (mirror-aware)
+// Returns [{pairA, pairB}] where pairA is key in A, pairB is how it was found in B
+function findCommon(entA,entB){
+  const seen=new Set();
+  const res=[];
+  entA.pairs.forEach(pA=>{
+    const mA=mirrorOf(pA);
+    let pB=null;
+    if(entB.pairs.includes(pA))pB=pA;
+    else if(entB.pairs.includes(mA))pB=mA;
+    if(pB!==null){
+      const key=pA+'|'+pB;
+      if(!seen.has(key)){seen.add(key);res.push({pairA:pA,pairB:pB});}
+    }
   });
-  sel.style.display = 'block';
+  return res;
 }
 
-function generateResults() {
-  const type = document.getElementById('baseType').value;
-  const num = document.getElementById('numberSelect').value;
-  const seqDisplay = document.getElementById('seqDisplay');
-  const results = document.getElementById('results');
-  if (!num) { seqDisplay.style.display='none'; results.innerHTML=''; return; }
-  const data = type === 'base1' ? base1Data : base2Data;
-  const dg = data[num];
-  seqDisplay.innerHTML = `${num} &rarr; ${dg.pairs.join(' · ')}`;
-  seqDisplay.style.display = 'inline-block';
-  results.innerHTML = dg.pairs.map(pair => renderPairSection(pair, dg.keys[pair])).join('');
-}
+function labelOf(type,num){return(type==='base1'?'Baz 1':type==='base2'?'Baz 2':'Pè')+'-'+num;}
 
-// ════════════════════════════════════════════════════════
-// SECTION 2: KONBINEZON BAZ 1 & 2
-// ════════════════════════════════════════════════════════
+function runCompare(){
+  const typeA=document.getElementById('typeA').value;
+  const numA=document.getElementById('numA').value;
+  const typeB=document.getElementById('typeB').value;
+  const numB=document.getElementById('numB').value;
+  const out=document.getElementById('compareOut');
 
-function calculateCommon() {
-  const b1Val = document.getElementById('b1Select').value;
-  const b2Val = document.getElementById('b2Select').value;
-  const out = document.getElementById('commonResults');
-  const b1 = base1Data[b1Val];
-  const b2 = base2Data[b2Val];
-
-  const commonPairs = b1.pairs.filter(p => b2.pairs.includes(p));
-  let html = `<div class="seq-header" style="color:var(--gold); border-bottom-color:var(--gold)">
-    REZILTA: ${b1Val} × ${b2Val}
-  </div>`;
-
-  if (commonPairs.length === 0) {
-    html += `<div class="empty-msg">Pa gen pair ki sanble ant ${b1Val} ak ${b2Val}.</div>`;
-  } else {
-    commonPairs.forEach(pair => {
-      const commonKeys = b1.keys[pair].filter(k => b2.keys[pair].includes(k));
-      if (commonKeys.length === 0) {
-        html += `<div class="pair-section common-card">
-          <div class="pair-title">Pair Komen: ${pair}</div>
-          <div class="empty-msg">Pa gen kle komen.</div>
-        </div>`;
-      } else {
-        html += renderPairSection(pair, commonKeys, 'common-card', 'var(--gold)');
-      }
-    });
-  }
-  out.innerHTML = html;
-}
-
-// ════════════════════════════════════════════════════════
-// SECTION 3: COMPARE TO BOUL PÈ
-// ════════════════════════════════════════════════════════
-
-function updatePeOptions() {
-  const type = document.getElementById('peBaseType').value;
-  const sel = document.getElementById('peNumSelect');
-  sel.innerHTML = '<option value="">-- Chwazi Nimewo --</option>';
-  document.getElementById('peResults').innerHTML = '';
-  if (!type) { sel.style.display='none'; return; }
-  const data = type === 'base1' ? base1Data : base2Data;
-  Object.keys(data).forEach(num => {
-    sel.innerHTML += `<option value="${num}">${num}</option>`;
-  });
-  sel.style.display = 'block';
-}
-
-function compareWithPe() {
-  const type = document.getElementById('peBaseType').value;
-  const num  = document.getElementById('peNumSelect').value;
-  const peBoul = document.getElementById('peBoulSelect').value;
-  const out  = document.getElementById('peResults');
-
-  if (!type || !num) {
-    out.innerHTML = `<div class="empty-msg" style="color:var(--red)">⚠ Chwazi sekans ak nimewo anvan.</div>`;
+  if(!typeA||!numA||!typeB||!numB){
+    out.innerHTML=`<div class="empty-msg" style="color:var(--red)">⚠ Chwazi de sekans ak nimewo yo anvan.</div>`;
     return;
   }
 
-  const baseData = type === 'base1' ? base1Data : base2Data;
-  const dg = baseData[num];
+  const lA=labelOf(typeA,numA), lB=labelOf(typeB,numB);
+  const entA=getEntry(typeA,numA), entB=getEntry(typeB,numB);
+  const common=findCommon(entA,entB);
 
-  // Pe companions (formatted as 2-digit strings)
-  const peVals = boulPe[peBoul].map(v => pad2(v));
+  let html=`<div class="seq-header" style="color:var(--gold);border-bottom-color:var(--gold)">${lA} &times; ${lB}</div>`;
 
-  // Find which BASE PAIRS from this sekans appear in Pe companions (direct or mirror)
-  const matchedPairs = dg.pairs.filter(bp => {
-    const bpMirror = bp[1] + bp[0];
-    return peVals.includes(bp) || peVals.includes(bpMirror);
-  });
-
-  // Header
-  let html = `<div class="seq-header" style="color:var(--pe-color); border-bottom-color:var(--pe-color)">
-    BAZ ${type==='base1'?'1':'2'}-${num} &times; BOUL PÈ ${peBoul}
-  </div>`;
-
-  // Show the Pe companions for reference
-  html += `<div class="pair-section" style="border-color:rgba(255,107,53,0.3)">
-    <div class="pair-title" style="color:var(--pe-color); font-size:14px">
-      Boul Pè ${peBoul} → Konpayon:
+  // Context cards
+  html+=`<div class="pair-ctx">
+    <div class="ctx-box" style="border-color:rgba(125,249,255,0.4)">
+      <div style="font-size:10px;color:#7df9ff;letter-spacing:0.2em;margin-bottom:5px">${lA}</div>
+      <div style="font-family:'Courier New',monospace;font-size:13px;color:#7df9ff">${entA.pairs.join(' · ')}</div>
     </div>
-    <div class="pe-companions">
-      ${peVals.map(v => `<div class="pe-pill">${v}</div>`).join('')}
-    </div>
-    <div style="font-size:12px; color:var(--muted); margin-top:6px">
-      Sekans ${num} Pairs: ${dg.pairs.join(' · ')}
+    <div class="ctx-box" style="border-color:rgba(255,221,87,0.4)">
+      <div style="font-size:10px;color:#ffdd57;letter-spacing:0.2em;margin-bottom:5px">${lB}</div>
+      <div style="font-family:'Courier New',monospace;font-size:13px;color:#ffdd57">${entB.pairs.join(' · ')}</div>
     </div>
   </div>`;
 
-  if (matchedPairs.length === 0) {
-    html += `<div class="empty-msg">
-      Pa gen pair ki sanble ant Baz ${type==='base1'?'1':'2'}-${num} ak Boul Pè ${peBoul}.
-    </div>`;
-  } else {
-    // For each matched pair, output ONLY the Pick3 combos for that pair
-    matchedPairs.forEach(bp => {
-      const keys = dg.keys[bp];
-      const combos = makePick3(keys, bp);
-      const totalNums = combos.reduce((acc, c) => acc + (c.includes(' - ') ? 2 : 1), 0);
-      html += `<div class="pair-section pe-card">
-        <div class="pair-title">
-          ✅ Pair Komen: ${bp}
-          <span class="count-badge" style="border-color:var(--pe-color); color:var(--pe-color)">${totalNums} nimewo</span>
-        </div>
-        <div class="pick3-grid">
-          ${combos.map(c => `<div class="pick3-item">${c}</div>`).join('')}
-        </div>
-      </div>`;
-    });
+  if(common.length===0){
+    html+=`<div class="empty-msg">Pa gen pair ki sanble ant <strong>${lA}</strong> ak <strong>${lB}</strong>.</div>`;
+    out.innerHTML=html; return;
   }
 
-  out.innerHTML = html;
+  const bothPe=typeA==='pe'&&typeB==='pe';
+  const onePe=(typeA==='pe')!==(typeB==='pe');
+  const bothBase=!bothPe&&!onePe;
+
+  common.forEach(({pairA,pairB})=>{
+    const keysA=entA.keys[pairA];
+    const keysB=entB.keys[pairB];
+    const sameDir=pairA===pairB;
+    const pairLabel=sameDir?pairA:`${pairA} / ${pairB}`;
+
+    if(bothPe){
+      // Pe × Pe: each side outputs Pick3 with its own digit
+      const cA=makePick3(keysA,pairA);
+      const cB=makePick3(keysB,pairB);
+      const total=cA.length+cB.length;
+      html+=`<div class="pair-section common-card">
+        <div class="pair-title">✅ Pair Komen: ${pairLabel} <span class="count-badge count-gold">${total} nimewo</span></div>
+        <div class="sub-label" style="color:#7df9ff">${lA}:</div>
+        ${renderCombos(cA,'side-a')}
+        <div class="sub-label" style="color:#ffdd57;margin-top:8px">${lB}:</div>
+        ${renderCombos(cB,'side-b')}
+      </div>`;
+
+    } else if(onePe){
+      // Base × Pe: output Pick3 using the BASE side's keys for the matched pair
+      const isAbase=typeA!=='pe';
+      const baseKeys=isAbase?keysA:keysB;
+      const basePair=isAbase?pairA:pairB;
+      const baseLabel=isAbase?lA:lB;
+      const peLabel=isAbase?lB:lA;
+      const combos=makePick3(baseKeys,basePair);
+      const total=combos.reduce((a,c)=>a+(c.includes(' - ')?2:1),0);
+      html+=`<div class="pair-section common-card">
+        <div class="pair-title">✅ Pair Komen: ${pairLabel} <span class="count-badge count-gold">${total} nimewo</span></div>
+        <div class="sub-label" style="color:var(--muted)">${peLabel} → ${baseLabel}:</div>
+        ${renderCombos(combos)}
+      </div>`;
+
+    } else {
+      // Base × Base: split into common keys (strongest), A-only, B-only
+      // If pairA ≠ pairB (mirror match), B's picks use pairB
+      const commonKeys=keysA.filter(k=>keysB.includes(k));
+      const onlyA=keysA.filter(k=>!keysB.includes(k));
+      const onlyB=keysB.filter(k=>!keysA.includes(k));
+      const totalStrong=commonKeys.reduce((a,_)=>a+2,0);
+
+      html+=`<div class="pair-section common-card">
+        <div class="pair-title">✅ Pair Komen: ${pairLabel} <span class="count-badge count-gold">${totalStrong} nimewo fò</span></div>`;
+
+      if(commonKeys.length>0){
+        const combos=makePick3(commonKeys,pairA);
+        html+=`<div class="sub-label" style="color:var(--green)">🔥 Kle Komen — ${lA} + ${lB}:</div>
+          ${renderCombos(combos,'side-common')}`;
+      }
+      if(onlyA.length>0){
+        const combos=makePick3(onlyA,pairA);
+        html+=`<div class="sub-label" style="color:#7df9ff;margin-top:8px">${lA} sèlman:</div>
+          ${renderCombos(combos,'side-a')}`;
+      }
+      if(onlyB.length>0){
+        const combos=makePick3(onlyB,pairB);
+        html+=`<div class="sub-label" style="color:#ffdd57;margin-top:8px">${lB} sèlman:</div>
+          ${renderCombos(combos,'side-b')}`;
+      }
+      html+=`</div>`;
+    }
+  });
+
+  out.innerHTML=html;
 }
 </script>
 </body>
